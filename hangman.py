@@ -226,7 +226,6 @@ class Hangman:
 # main program loop
 if __name__ == "__main__":
     hangmanui = HangmanUI()
-    print(hangmanui.ansi.reset_screen())
     while hangmanui.hangman.game_state:
         print(hangmanui.display_incorrect_char())
         hangmanui.draw_hangman()

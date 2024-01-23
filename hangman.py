@@ -109,6 +109,9 @@ class HangmanUI:
         current_stage = min(self.hangman.incorrect_guesses, len(self.stages) - 1)
         print(self.stages[current_stage])
 
+    def display_incorrect_char(self):
+        print(f"Incorrect guessed characters: {self.hangman.incorrect_guessed_chars}")
+
     # draws _ where character not guessed. puts correct guessed characters instead of _
     def draw_line(self):
         game_result = self.hangman.game_lost()
@@ -157,6 +160,7 @@ class Hangman:
     def _update_incorrect_chars(self, guessed_char):
         self.incorrect_guessed_chars.append(guessed_char)
         self.incorrect_guesses += 1
+        
     
     # reads words.txt
     def _get_data(self):
@@ -222,6 +226,7 @@ if __name__ == "__main__":
     hangmanui = HangmanUI()
 
     while hangmanui.hangman.game_state:
+        hangmanui.display_incorrect_char()
         hangmanui.draw_hangman()
         hangmanui.draw_line()
         if hangmanui.game_end():

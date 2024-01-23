@@ -6,7 +6,7 @@ class FileHandler:
     # read and return data from file
     def read_file(self, filename):
         try:
-            with open(filename, 'r') as file:
+            with open(filename, 'r', encoding="UTF-8") as file:
                 file_data = file.readlines()
                 return file_data
         except PermissionError as e:
@@ -112,7 +112,8 @@ class HangmanUI:
         print(self.stages[current_stage])
 
     def display_incorrect_char(self):
-        return f"Incorrect guessed characters: {self.hangman.incorrect_guessed_chars}"
+        #return f"Incorrect guessed characters: {self.hangman.incorrect_guessed_chars}"
+        return self.ansi.text_color(color=self.ansi.red, text=f"Incorrect guessed characters: {self.hangman.incorrect_guessed_chars}")
 
     # draws _ where character not guessed. puts correct guessed characters instead of _
     def draw_line(self):
@@ -166,6 +167,7 @@ class Hangman:
         
     # reads words.txt
     def _get_data(self):
+        #return self.files.read_file(filename="words.txt")
         return self.files.read_file(filename="words.txt")
     
     # splits word into characters
@@ -226,7 +228,7 @@ class Hangman:
 # main program loop
 if __name__ == "__main__":
     hangmanui = HangmanUI()
-    
+    print(hangmanui.ansi.reset_screen())
     while hangmanui.hangman.game_state:
         print(hangmanui.display_incorrect_char())
         hangmanui.draw_hangman()

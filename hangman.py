@@ -158,8 +158,9 @@ class Hangman:
 
     # Variable update
     def _update_incorrect_chars(self, guessed_char):
-        self.incorrect_guessed_chars.append(guessed_char)
-        self.incorrect_guesses += 1
+        if not guessed_char in self.incorrect_guessed_chars:
+            self.incorrect_guessed_chars.append(guessed_char)
+            self.incorrect_guesses += 1
         
     
     # reads words.txt

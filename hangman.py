@@ -1,4 +1,6 @@
 import random
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 class FileHandler:
     # read and return data from file
@@ -110,7 +112,7 @@ class HangmanUI:
         print(self.stages[current_stage])
 
     def display_incorrect_char(self):
-        print(f"Incorrect guessed characters: {self.hangman.incorrect_guessed_chars}")
+        return f"Incorrect guessed characters: {self.hangman.incorrect_guessed_chars}"
 
     # draws _ where character not guessed. puts correct guessed characters instead of _
     def draw_line(self):
@@ -162,7 +164,6 @@ class Hangman:
             self.incorrect_guessed_chars.append(guessed_char)
             self.incorrect_guesses += 1
         
-    
     # reads words.txt
     def _get_data(self):
         return self.files.read_file(filename="words.txt")
@@ -175,7 +176,7 @@ class Hangman:
     def _random_word(self):
         data = self._get_data()
         word = random.choice(data)
-        self.word = word
+        self.word = word.strip()
         self._letters_in_word()
 
     # reset game loop. else ends program
@@ -225,9 +226,9 @@ class Hangman:
 # main program loop
 if __name__ == "__main__":
     hangmanui = HangmanUI()
-
+    
     while hangmanui.hangman.game_state:
-        hangmanui.display_incorrect_char()
+        print(hangmanui.display_incorrect_char())
         hangmanui.draw_hangman()
         hangmanui.draw_line()
         if hangmanui.game_end():
@@ -239,6 +240,3 @@ if __name__ == "__main__":
                 hangmanui.user_guess(user_guess)
 
             print(hangmanui.ansi.reset_screen())
-        
-    
-    

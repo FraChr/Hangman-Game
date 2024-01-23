@@ -1,6 +1,4 @@
 import random
-import os
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 class FileHandler:
     # read and return data from file
